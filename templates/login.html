@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+	<title>Login!</title>
+</head>
+<body><div class="container">
+	{% if user.is_authenticated %}
+	<h2>You Have Already logged in !</h2><br>
+	Back to<a href="/"> Home Page</a>
+	{% else %}
+	  
+      <div class="in">
+	<form  method="post">
+		{% csrf_token %}
+		<input type="email" name="email"><br>
+		<input type="password" name="Password"><br>
+		<input type="submit" value="Login in"><br>
+	</form>
+
+	{% endif %}
+</div></div>
+</body>
+</html>

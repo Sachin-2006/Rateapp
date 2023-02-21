@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+	<title>Rate Your Teacher!!</title>
+
+</head>
+
+  <body>
+    <header>
+      <h1>Teacher Profile</h1>
+    </header>
+    <main>
+      <section class="user-info">
+        <h2>Teacher Info</h2>
+        <p><strong>Name:</strong> {{ teacher.name }}</p>
+        <!-- Add more user information here -->
+      </section>
+      <section class="user-activity">
+        <h2>Teacher Details</h2>
+        <p><strong>Handling </strong>: {{ teacher.Handling}}</p><br>
+
+        <p><strong> Rating </strong>: {% if astar.stars__avg is not None %}{{astar.stars__avg}}{% endif %}</p>
+            </section>
+    </main>
+
+    <div class="comment-section">
+    {% if user.is_authenticated %}
+  <form class="comment-form" action="#" method="post">
+    <h3 class="comment-form__title">Leave a Comment</h3>
+    	{% csrf_token %}
+	{{com}}
+    <button type="submit" class="comment-form__submit">Submit</button>
+  </form>
+  <h2 class="comment-section__title">Comments</h2>
+  
+  <ul class="comment-list">
+  	{% for comment in all_com %}
+    <li class="comment">
+      <div class="comment__user-avatar">
+        <img src="{% static 'images/student.png' %}" alt="User Avatar">
+      </div>
+      <div class="comment__content">
+        <p class="comment__author">Anonymous</p>
+        <p class="comment__text">{{comment.Comment}}</p><br>
+        <p> <strong>Stars Rated</strong> : {{comment.stars}}</p>
+      </div>
+    </li>
+    {% endfor %}
+    
+{% else %}
+
+create a Account!<a href="{% url 'signup' %}">Signup</a><br>
+Already have an Account <a href="{% url 'login' %}">login</a>
+
+{% endif %}
+  </ul>
+  
+</div>
+
+
+  </body>
+</html>
+
+
+
+</html>
+{% endblock %}
